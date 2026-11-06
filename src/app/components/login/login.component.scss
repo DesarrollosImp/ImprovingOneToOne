@@ -1,0 +1,32 @@
+.container{
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+    padding: 2rem 3rem;
+    margin-top: 10rem;
+}
+
+:host ::ng-deep {
+    .p-button {
+        background: var(--primary-color);
+        border-color: var(--primary-color);
+        
+        &:hover {
+            background: var(--primary-600) !important;
+            border-color: var(--primary-600) !important;
+        }
+        
+        .p-button-icon {
+            color: white;
+        }
+    }
+    
+    .p-inputtext {
+        &:enabled:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 1px var(--primary-color);
+        }
+    }
+}

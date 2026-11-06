@@ -1,0 +1,212 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "primeflex/primeflex.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+:root {
+    --primary-color: #0f253a;
+    --primary-color-text: #ffffff;
+    --primary-50: #e6e9eb;
+    --primary-100: #ccd2d7;
+    --primary-200: #99a5af;
+    --primary-300: #667887;
+    --primary-400: #334b5f;
+    --primary-500: #0f253a;
+    --primary-600: #001e2eaa;
+    --primary-700: #0017277f;
+    --primary-800: #000f1555;
+    --primary-900: #00080a2a;
+    --font-family: 'Raleway', sans-serif;
+}
+
+html {
+    font-size: 13px;
+}
+
+body {
+    font-family: var(--font-family);
+    font-weight: normal;
+    background: var(--surface-ground);
+    color: var(--text-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// Estilos globales para PrimeNG
+.p-button {
+    &:not([class*="p-button-outlined"]):not([class*="p-button-text"]):not(.p-button-success):not(.p-button-warning):not(.p-button-danger):not(.p-button-info):not(.p-button-help):not(.p-button-secondary) {
+        background: var(--primary-color);
+        border-color: var(--primary-color);
+        color: var(--primary-color-text);
+
+        &:hover {
+            background: rgba(189, 149, 90, 0.7) !important;
+            border-color: rgba(189, 149, 90, 0.7) !important;
+            color: #ffffff !important;
+        }
+    }
+    
+    &:hover:not(.p-button-success):not(.p-button-warning):not(.p-button-danger):not(.p-button-info):not(.p-button-help):not(.p-button-secondary) {
+        background: rgba(189, 149, 90, 0.7);
+        border-color: rgba(189, 149, 90, 0.7);
+        color: #ffffff;
+    }
+    
+    &.p-button-outlined {
+        background: transparent;
+        color: var(--primary-color);
+        border: 1px solid;
+        
+        &:hover {
+            background: rgba(189, 149, 90, 0.15) !important;
+            color: #bd955a !important;
+            border-color: #bd955a !important;
+        }
+    }
+    
+    &.p-button-text {
+        background: transparent;
+        color: var(--primary-color);
+        border: none;
+        
+        &:hover {
+            background: rgba(189, 149, 90, 0.15) !important;
+            color: #bd955a !important;
+        }
+    }
+
+    &.p-button-rounded.p-button-text {
+        &:hover {
+            background: rgba(189, 149, 90, 0.15) !important;
+            color: #bd955a !important;
+        }
+    }
+
+    &.custom-pdf-btn {
+        background-color: #bd955a !important;
+        border-color: #bd955a !important;
+        color: #ffffff !important;
+
+        &:hover {
+            background-color: rgba(189, 149, 90, 0.7) !important;
+            border-color: rgba(189, 149, 90, 0.7) !important;
+            color: #ffffff !important;
+        }
+    }
+}
+
+// Estilos específicos para la navbar
+.p-toolbar.navbar-toolbar {
+    background: var(--primary-color) !important;
+}
+
+.p-menubar {
+    background: var(--primary-color) !important;
+    border: none !important;
+    
+    .p-menuitem-link {
+        color: var(--primary-color-text) !important;
+        
+        &:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+    }
+}
+
+// Estilos para inputs y formularios
+.p-inputnumber.p-disabled {
+    opacity: 1;
+    .p-inputnumber-input {
+        background-color: #ffffff !important;
+        color: #495057 !important;
+        border-color: #ced4da !important;
+        cursor: default;
+        opacity: 1 !important;
+    }
+    .p-inputnumber-button {
+        background-color: #ffffff !important;
+        color: #6c757d !important;
+        border-color: #ced4da !important;
+        opacity: 1 !important;
+    }
+}
+
+.p-inputgroup-addon {
+    background-color: #f8f9fa;
+    color: #495057;
+    border-color: #ced4da;
+}
+
+.p-inputnumber {
+    .p-inputnumber-input {
+        &:hover:not(:disabled) {
+            border-color: #bd955a !important;
+        }
+        &:focus {
+            border-color: #bd955a !important;
+            box-shadow: 0 0 0 0.2rem rgba(189, 149, 90, 0.2) !important;
+        }
+    }
+    .p-inputnumber-button {
+        &:hover:not(:disabled) {
+            background-color: #f8f9fa;
+            color: #bd955a;
+            border-color: #bd955a;
+        }
+    }
+}
+
+.p-inputtext {
+    &:hover:not(:disabled) {
+        border-color: #bd955a !important;
+    }
+    &:focus {
+        border-color: #bd955a !important;
+        box-shadow: 0 0 0 0.2rem rgba(189, 149, 90, 0.2) !important;
+    }
+}
+
+.p-dropdown {
+    &:hover:not(.p-disabled) {
+        border-color: #bd955a !important;
+    }
+    &:focus {
+        border-color: #bd955a !important;
+        box-shadow: 0 0 0 0.2rem rgba(189, 149, 90, 0.2) !important;
+    }
+    &.p-focus {
+        border-color: #bd955a !important;
+        box-shadow: 0 0 0 0.2rem rgba(189, 149, 90, 0.2) !important;
+    }
+    .p-dropdown-label {
+        &.p-placeholder {
+            color: #6c757d;
+        }
+    }
+}
+
+// Sobrescribir los estilos de focus del tema
+.p-inputtext:focus,
+.p-dropdown:focus,
+.p-inputnumber:focus,
+.p-inputnumber-input:focus {
+    border-color: #bd955a !important;
+    box-shadow: 0 0 0 0.2rem rgba(189, 149, 90, 0.2) !important;
+}
+
+// Estilos globales para checkboxes
+.p-checkbox {
+    .p-checkbox-box {
+        &.p-highlight {
+            border-color: #bd955a !important;
+            background: #bd955a !important;
+        }
+
+        &:not(.p-checkbox-disabled):hover {
+            border-color: #bd955a !important;
+        }
+    }
+}
+
