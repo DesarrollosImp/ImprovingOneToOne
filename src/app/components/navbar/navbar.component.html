@@ -1,0 +1,16 @@
+<p-toolbar [style]="{'background-color': 'var(--primary-color)'}">
+    <ng-template pTemplate="start">
+        <img src="assets/images/NavbarLogo.png" alt="IMPROVING LOGISTICS & CONSULTING" height="65" class="mb-3" style="cursor: pointer;">
+    </ng-template>
+    <ng-template pTemplate="center">
+        <p-menubar>
+            <!-- accesos de navegacion-->
+        </p-menubar>
+    </ng-template>
+    <ng-template pTemplate="end">
+        <p-menubar [style]="{'background-color':'var(--primary-color)', 'border':'none','font-weight':'bold','color':'white'}">
+            <p style="font-size: 13px;">{{currentUser}}</p>
+            <p-button icon="pi pi-sign-out" label="Logout"></p-button>
+        </p-menubar>
+    </ng-template>
+</p-toolbar>

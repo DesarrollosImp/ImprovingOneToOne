@@ -1,0 +1,72 @@
+p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 24px;
+    color: white;
+}
+
+.p-toolbar{
+    background: red;
+}
+
+:host::ng-deep {
+    .p-menubar {
+        .p-submenu-list {
+            z-index: 1000;
+            background: var(--primary-color);
+            border: none;
+        }
+
+        .p-menuitem {
+            .p-menuitem-link,
+            .p-menuitem-content {
+                background: transparent !important;
+                
+                &:hover,
+                &.p-menuitem-link-active,
+                &.p-highlight,
+                &:focus,
+                &.p-focus {
+                    background: rgba(189, 149, 90, 0.3) !important;
+                }
+                
+                .p-menuitem-text,
+                .p-menuitem-icon {
+                    color: white;
+                }
+            }
+
+            &.p-menuitem-active,
+            &.p-highlight {
+                > .p-menuitem-content,
+                > .p-menuitem-link {
+                    background: rgba(189, 149, 90, 0.3) !important;
+                }
+            }
+        }
+
+        // Asegurarse de que los submenús también mantengan el estilo
+        .p-submenu-list {
+            .p-menuitem {
+                .p-menuitem-link,
+                .p-menuitem-content {
+                    &:hover,
+                    &:focus,
+                    &.p-highlight,
+                    &.p-menuitem-link-active {
+                        background: rgba(189, 149, 90, 0.3) !important;
+                    }
+                }
+            }
+        }
+    }
+    
+    .p-toolbar {
+        .p-button {
+            background: transparent !important;
+            border: none;
+            color: white;
+            font-weight: bold;
+        }
+    }
+}
