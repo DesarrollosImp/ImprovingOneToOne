@@ -6,7 +6,7 @@
   <div class="py-3">
     <h3>Datos generales de la reunion</h3>
   </div>
-  <form>
+  <form [formGroup]="formulario" (ngSubmit)="guardar()" class="p-3">
     <section>
       <div class="formgrid grid">
         <!-- Fecha -->
@@ -35,7 +35,9 @@
         <!-- Nombre trabajador -->
         <div class="field col-12 md:col-6 lg:col-6">
           <label for="trabajador">Nombre del trabajador</label>
-          <input id="trabajador" pInputText class="w-full" />
+          <select name="trabajador" id="trabajador" class="w-full">
+            <option value="">-</option>
+          </select>
         </div>
         <!-- Posicion del trabajador -->
         <div class="field col-12 md:col-6 lg:col-6">
@@ -243,6 +245,22 @@
       </div>
     </section>
 
+    <!-- Necesidad formativa -->
+     <section>
+        <h3>Necesidad Formativa</h3>
+        <div class="field flex align-items-center gap-2">
+            <p-checkbox formControlName="necesitaFormacion" [binary]="true" inputId="necesitaFormacion"/>
+            <label for="necesitaFormacion" class="mb-0">¿El trabajador necesita formación?</label>
+        </div>
+
+        @if (formulario.controls.necesitaFormacion.value) {
+            <div>
+                <label for="formacion">¿Qué formación necesita?</label>
+                <textarea name="formacion" id="formacion" pInputTextarea formControlName="formacion" [autoResize]="true" rows="3" class="w-full"></textarea>
+            </div>
+        }
+     </section>
+
     <section class="mb-4">
         <h3 class="py-3">Firmas</h3>
         <div class="grid">
@@ -254,5 +272,8 @@
             </div>
         </div>
     </section>
+    <div class="flex justify-content-end mt-4">
+        <p-button type="submit" label="Guardar" icon="pi pi-save" styleClass="w-full md:w-auto"/>
+    </div>
   </form>
 </div>
