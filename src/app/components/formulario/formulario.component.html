@@ -1,0 +1,258 @@
+<div class="p-3">
+  <div>
+    <h1 class="text-center">Formulario One-To-One</h1>
+  </div>
+  <!-- Datos generales de la reunion -->
+  <div class="py-3">
+    <h3>Datos generales de la reunion</h3>
+  </div>
+  <form>
+    <section>
+      <div class="formgrid grid">
+        <!-- Fecha -->
+        <div class="field col-12 md:col-6 lg:col-6">
+          <label for="fecha">Fecha</label>
+          <p-calendar
+            inputId="fecha"
+            dateFormat="dd/mm/yy"
+            [showIcon]="true"
+            styleClass="w-full"
+          >
+          </p-calendar>
+        </div>
+        <!-- Area -->
+        <div class="field col-12 md:col-6 lg:col-6">
+          <label for="area">Area</label>
+          <input id="area" pInputText class="w-full" />
+        </div>
+        <!-- Responsable desplegable -->
+        <div class="field col-12 md:col-6 lg:col-6">
+          <label for="responsable">Responsable</label>
+          <select name="responsable" id="responsable" class="w-full">
+            <option value="">-</option>
+          </select>
+        </div>
+        <!-- Nombre trabajador -->
+        <div class="field col-12 md:col-6 lg:col-6">
+          <label for="trabajador">Nombre del trabajador</label>
+          <input id="trabajador" pInputText class="w-full" />
+        </div>
+        <!-- Posicion del trabajador -->
+        <div class="field col-12 md:col-6 lg:col-6">
+          <label for="posicion">Posicion del trabajador</label>
+          <input id="posicion" pInputText class="w-full" />
+        </div>
+        <!-- Fecha de antiguedad -->
+        <div class="field col-12 md:col-6 lg:col-6">
+          <label for="fechaAntiguedad">Fecha de antiguedad</label>
+          <p-calendar
+            inputId="fechaAntiguedad"
+            dateFormat="dd/mm/yy"
+            [showIcon]="true"
+            styleClass="w-full"
+          >
+          </p-calendar>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <!-- Seguimiento del trabajo y prioridades -->
+      <section class="col-12 md:col-6">
+        <h3 class="py-3">Seguimiento del trabajo y prioridades</h3>
+
+        <div class="field">
+          <label for="estadoProyecto">Estado de tareas o proyectos</label>
+          <textarea
+            id="estadoProyecto"
+            pInputTextarea
+            [autoResize]="true"
+            rows="4"
+            placeholder="Describe tu estado"
+            class="w-full"
+          ></textarea>
+        </div>
+
+        <div class="field">
+          <label for="dificultadAvance"
+            >Dificultades que frenen el avance</label
+          >
+          <textarea
+            id="dificultadAvance"
+            pInputTextarea
+            [autoResize]="true"
+            rows="4"
+            placeholder="Describe la dificultad"
+            class="w-full"
+          ></textarea>
+        </div>
+      </section>
+
+      <!-- Feedback del manager -->
+      <section class="col-12 md:col-6">
+        <h3 class="py-3">Feedback del manager</h3>
+
+        <div class="field">
+          <label for="puntosFuertes">Puntos fuertes</label>
+          <textarea
+            id="puntosFuertes"
+            pInputTextarea
+            [autoResize]="true"
+            rows="4"
+            placeholder="Un punto por línea"
+            class="w-full"
+          ></textarea>
+        </div>
+
+        <div class="field">
+          <label for="aDesarrollar">A desarrollar</label>
+          <textarea
+            id="aDesarrollar"
+            pInputTextarea
+            [autoResize]="true"
+            rows="4"
+            placeholder="Un punto por línea"
+            class="w-full"
+          ></textarea>
+        </div>
+      </section>
+      <!-- Feedback hacia el manager -->
+      <section class="col-12 md:col-6">
+        <h3 class="py-3">Feedback hacia el manager</h3>
+
+        <div class="field">
+          <label for="queFuncionaBien">Que esta funcionando bien</label>
+          <textarea
+            id="queFuncionaBien"
+            pInputTextarea
+            [autoResize]="true"
+            rows="4"
+            placeholder="Un punto por línea"
+            class="w-full"
+          ></textarea>
+        </div>
+
+        <div class="field">
+          <label for="quePuedeMejorar">Que puede mejorar</label>
+          <textarea
+            id="quePuedeMejorar"
+            pInputTextarea
+            [autoResize]="true"
+            rows="4"
+            placeholder="Un punto por línea"
+            class="w-full"
+          ></textarea>
+        </div>
+      </section>
+
+      <!-- Desarrollo profesional -->
+       <section class="col-12 md:col-6">
+        <h3 class="py-3">Desarrollo Profesional</h3>
+
+        <div class="field">
+          <label for="visionCuatroAnyos">¿Donde te ves dentro de 4 años?</label>
+          <textarea
+            id="visionCuatroAnyos"
+            pInputTextarea
+            [autoResize]="true"
+            rows="4"
+            placeholder="Un punto por línea"
+            class="w-full"
+          ></textarea>
+        </div>
+
+        <div class="field">
+          <label for="habilidadesDesarrollar">¿Existen habilidades que quieras o necesites desarrollar?</label>
+          <textarea
+            id="habilidadesDesarrollar"
+            pInputTextarea
+            [autoResize]="true"
+            rows="4"
+            placeholder="Un punto por línea"
+            class="w-full"
+          ></textarea>
+        </div>
+      </section>
+
+      <!-- Bienestar y motivacion -->
+       <section class="col-12 md:col-6">
+        <h3 class="py-3">Bienestar y motivacion</h3>
+
+        <div class="field">
+          <label for="bienestarMotivacion">Nivel de carga laboral, motivación y equilibrio entre trabajo y vida personal</label>
+          <textarea
+            id="bienestarMotivacion"
+            pInputTextarea
+            [autoResize]="true"
+            rows="4"
+            placeholder="Un punto por línea"
+            class="w-full"
+          ></textarea>
+        </div>
+      </section>
+    </div>
+
+    <!-- Objetivos y desempeño -->
+    <section>
+        <h3 class="py-3">Objetivos y desempeño</h3>
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-6 lg:col-6">
+          <label for="objetivosIndividuales">Objetivos individuales</label>
+          <textarea
+            id="objetivosIndividuales"
+            pInputTextarea
+            [autoResize]="true"
+            rows="4"
+            placeholder="Un punto por línea"
+            class="w-full"
+          ></textarea>
+        </div>
+        <div class="field col-12 md:col-6 lg:col-6">
+          <label for="metasIndividuales">Metas individuales</label>
+          <textarea
+            id="metasIndividuales"
+            pInputTextarea
+            [autoResize]="true"
+            rows="4"
+            placeholder="Un punto por línea"
+            class="w-full"
+          ></textarea>
+        </div>
+        <div class="field col-12 md:col-6 lg:col-6">
+          <label for="objetivosArea">Objetivos del área</label>
+          <textarea
+            id="objetivosArea"
+            pInputTextarea
+            [autoResize]="true"
+            rows="4"
+            placeholder="Un punto por línea"
+            class="w-full"
+          ></textarea>
+        </div>
+        <div class="field col-12 md:col-6 lg:col-6">
+          <label for="kpis">KPI's</label>
+          <textarea
+            id="kpis"
+            pInputTextarea
+            [autoResize]="true"
+            rows="4"
+            placeholder="Un punto por línea"
+            class="w-full"
+          ></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-4">
+        <h3 class="py-3">Firmas</h3>
+        <div class="grid">
+            <div class="col-12 lg:col-6">
+                <app-firma titulo="Firma del responsable" (firmaCambiada)="firmaResponsable = $event"/>
+            </div>
+            <div class="col-12 lg:col-6">
+                <app-firma titulo="Firma del Trabajador" (firmaCambiada)="firmaTrabajador = $event"/>
+            </div>
+        </div>
+    </section>
+  </form>
+</div>
