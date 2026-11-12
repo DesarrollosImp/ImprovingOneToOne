@@ -14,6 +14,7 @@
           <label for="fecha">Fecha</label>
           <p-calendar
             inputId="fecha"
+            formControlName="fecha"
             dateFormat="dd/mm/yy"
             [showIcon]="true"
             styleClass="w-full"
@@ -23,32 +24,41 @@
         <!-- Area -->
         <div class="field col-12 md:col-6 lg:col-6">
           <label for="area">Area</label>
-          <input id="area" pInputText class="w-full" />
+          <input formControlName="area" id="area" pInputText class="w-full" />
         </div>
         <!-- Responsable desplegable -->
         <div class="field col-12 md:col-6 lg:col-6">
           <label for="responsable">Responsable</label>
-          <select name="responsable" id="responsable" class="w-full">
+          <select formControlName="responsable" name="responsable" id="responsable" class="w-full">
             <option value="">-</option>
           </select>
         </div>
         <!-- Nombre trabajador -->
         <div class="field col-12 md:col-6 lg:col-6">
           <label for="trabajador">Nombre del trabajador</label>
-          <select name="trabajador" id="trabajador" class="w-full">
-            <option value="">-</option>
-          </select>
+          <p-dropdown inputId="trabajador"
+                      formControlName="trabajador"
+                      [options]="empleados"
+                      optionLabel="nombreCompleto"
+                      optionValue="id"
+                      [filter]="true"
+                      filterBy="nombreCompleto"
+                      placeholder="Selecciona un trabajador"
+                      (onChange)="seleccionTrabajador($event.value)"
+                      styleClass="w-full">
+          </p-dropdown>
         </div>
         <!-- Posicion del trabajador -->
         <div class="field col-12 md:col-6 lg:col-6">
           <label for="posicion">Posicion del trabajador</label>
-          <input id="posicion" pInputText class="w-full" />
+          <input formControlName="posicion" id="posicion" pInputText class="w-full" />
         </div>
         <!-- Fecha de antiguedad -->
         <div class="field col-12 md:col-6 lg:col-6">
           <label for="fechaAntiguedad">Fecha de antiguedad</label>
           <p-calendar
             inputId="fechaAntiguedad"
+            formControlName="fechaAntiguedad"
             dateFormat="dd/mm/yy"
             [showIcon]="true"
             styleClass="w-full"
@@ -67,6 +77,7 @@
           <label for="estadoProyecto">Estado de tareas o proyectos</label>
           <textarea
             id="estadoProyecto"
+            formControlName="estadoProyecto"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -81,6 +92,7 @@
           >
           <textarea
             id="dificultadAvance"
+            formControlName="dificultadAvance"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -98,6 +110,7 @@
           <label for="puntosFuertes">Puntos fuertes</label>
           <textarea
             id="puntosFuertes"
+            formControlName="puntosFuertes"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -110,6 +123,7 @@
           <label for="aDesarrollar">A desarrollar</label>
           <textarea
             id="aDesarrollar"
+            formControlName="aDesarrollar"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -126,6 +140,7 @@
           <label for="queFuncionaBien">Que esta funcionando bien</label>
           <textarea
             id="queFuncionaBien"
+            formControlName="queFuncionaBien"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -138,6 +153,7 @@
           <label for="quePuedeMejorar">Que puede mejorar</label>
           <textarea
             id="quePuedeMejorar"
+            formControlName="quePuedeMejorar"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -155,6 +171,7 @@
           <label for="visionCuatroAnyos">¿Donde te ves dentro de 4 años?</label>
           <textarea
             id="visionCuatroAnyos"
+            formControlName="visionCuatroAnyos"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -167,6 +184,7 @@
           <label for="habilidadesDesarrollar">¿Existen habilidades que quieras o necesites desarrollar?</label>
           <textarea
             id="habilidadesDesarrollar"
+            formControlName="habilidadesDesarrollar"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -184,6 +202,7 @@
           <label for="bienestarMotivacion">Nivel de carga laboral, motivación y equilibrio entre trabajo y vida personal</label>
           <textarea
             id="bienestarMotivacion"
+            formControlName="bienestarMotivacion"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -202,6 +221,7 @@
           <label for="objetivosIndividuales">Objetivos individuales</label>
           <textarea
             id="objetivosIndividuales"
+            formControlName="objetivosIndividuales"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -213,6 +233,7 @@
           <label for="metasIndividuales">Metas individuales</label>
           <textarea
             id="metasIndividuales"
+            formControlName="metasIndividuales"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -224,6 +245,7 @@
           <label for="objetivosArea">Objetivos del área</label>
           <textarea
             id="objetivosArea"
+            formControlName="objetivosArea"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -235,6 +257,7 @@
           <label for="kpis">KPI's</label>
           <textarea
             id="kpis"
+            formControlName="kpis"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -265,10 +288,10 @@
         <h3 class="py-3">Firmas</h3>
         <div class="grid">
             <div class="col-12 lg:col-6">
-                <app-firma titulo="Firma del responsable" (firmaCambiada)="firmaResponsable = $event"/>
+                <app-firma titulo="Firma del responsable" (firmaCambiada)="formulario.controls.firmaResponsable.setValue($event)"/>
             </div>
             <div class="col-12 lg:col-6">
-                <app-firma titulo="Firma del Trabajador" (firmaCambiada)="firmaTrabajador = $event"/>
+                <app-firma titulo="Firma del Trabajador" (firmaCambiada)="formulario.controls.firmaTrabajador.setValue($event)"/>
             </div>
         </div>
     </section>
