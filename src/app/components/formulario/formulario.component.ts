@@ -10,11 +10,16 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { takeUntilDestroyed  } from '@angular/core/rxjs-interop';
 import { Empleado } from '../../interfaces/empleado.model';
 import { EmpleadosService } from '../../services/empleados.service';
+import { OnetooneService } from '../../services/onetoone.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-formulario',
   standalone: true,
-  imports: [InputTextModule, CalendarModule, FieldsetModule, InputTextareaModule, FirmaComponent, ReactiveFormsModule, CheckboxModule, DropdownModule],
+  imports: [InputTextModule, CalendarModule, FieldsetModule, InputTextareaModule, FirmaComponent, ReactiveFormsModule, CheckboxModule, DropdownModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './formulario.component.html',
   styleUrl: './formulario.component.scss'
 })
@@ -23,6 +28,11 @@ export class FormularioComponent implements OnInit {
   //lista para el desplegable y empleado elegido
   empleados: Empleado[] = [];
   empleadoSeleccionado?: Empleado;
+  areas: string[] = [];
+  guardando = false;
+  firmaResponsable: string | null = null;
+  firmaTrabajador: string | null = null;
+
 
   //datos agrupados que se enviaran al backend
   formulario = new FormGroup({
@@ -30,18 +40,18 @@ export class FormularioComponent implements OnInit {
     //Datos generales
     fecha: new FormControl<Date | null>(null, Validators.required),
     area: new FormControl('', Validators.required),
-    responsable: new FormControl('', Validators.required),
-    trabajador: new FormControl<number | null>(null, Validators.required),
+    idManager: new FormControl('', Validators.required),
+    idEmpleado: new FormControl<number | null>(null, Validators.required),
     posicion: new FormControl('', Validators.required),
     fechaAntiguedad: new FormControl<Date | null>(null, Validators.required),
 
     //seguimiento del trabajo y prioridades
-    estadoProyecto: new FormControl('', Validators.required),
-    dificultadAvance: new FormControl('', Validators.required),
+    estadoTareaProyecto: new FormControl('', Validators.required),
+    dificultadesAvance: new FormControl('', Validators.required),
 
     // feedback del manager
     puntosFuertes: new FormControl('', Validators.required),
-    aDesarrollar: new FormControl('', Validators.required),
+    areasDesarrollar: new FormControl('', Validators.required),
 
     //feedback hacia el manager
     queFuncionaBien: new FormControl('', Validators.required),
@@ -69,10 +79,7 @@ export class FormularioComponent implements OnInit {
     firmaTrabajador: new FormControl<string | null>(null, Validators.required)
 
   });
-  firmaResponsable: string | null = null;
-  firmaTrabajador: string | null = null;
-
-  constructor(private empleadosService: EmpleadosService){
+  constructor(private empleadosService: EmpleadosService, private onetooneService: OnetooneService, private messageService: MessageService){
     this.formulario.controls.necesitaFormacion.valueChanges
     .pipe(takeUntilDestroyed())
     .subscribe(necesita => {
@@ -90,9 +97,15 @@ export class FormularioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //carga de empleados
     this.empleadosService.getActivos().subscribe({
       next: empleados => this.empleados = empleados,
       error: err => console.log('Error al cargar empleados: ' + err)
+    });
+    //carga de areas
+    this.empleadosService.getAReas().subscribe({
+      next: areas => this.areas = areas,
+      error: err => console.log('Error al cargar las areas: ' + err)
     });
   }
 
@@ -102,8 +115,7 @@ export class FormularioComponent implements OnInit {
     if(!this.empleadoSeleccionado) return;
 
     this.formulario.patchValue({
-      responsable: this.empleadoSeleccionado.idManager?.toString() ?? '',
-      area: this.empleadoSeleccionado.area ?? '',
+      idManager: this.empleadoSeleccionado.nombreManager ?? '',
       posicion: this.empleadoSeleccionado.posicion ?? '',
       fechaAntiguedad: this.empleadoSeleccionado.fechaInicioAntiguedad ? new Date(this.empleadoSeleccionado.fechaInicioAntiguedad) : null
     });
@@ -112,13 +124,53 @@ export class FormularioComponent implements OnInit {
 
   guardar(): void{
     if(this.formulario.invalid){
+      //TEMPORAL
+      console.log('Campos invalidos: ', Object.keys(this.formulario.controls)
+    .filter(nombre => this.formulario.get(nombre)?.invalid));
+    
       this.formulario.markAllAsTouched(); // muestra los errores de los campos
+      this.messageService.add({ severity: 'warn', summary:'Formulario Incompleto', detail: 'Revisa los campos en rojo' });
       return;
     }
 
+    const { necesitaFormacion, formacion, fecha, fechaAntiguedad, ...resto} = this.formulario.getRawValue();
+
     //incluimos los campos desactivados como por ejemplo, formacion si esta vacio.
-    const datos = this.formulario.getRawValue();
+    const datos = {
+      ...resto,
+      fecha: this.fechaSinHora(fecha),
+      fechaAntiguedad: this.fechaSinHora(fechaAntiguedad),
+      formacion: necesitaFormacion ? formacion : null
+    };
     //probamos en consola si llegan los datos
     console.log(datos);
+
+    this.guardando = true;
+
+    this.onetooneService.insertarFormulario(datos).subscribe({
+      next: respuesta => {
+        this.guardando = false;
+        this.messageService.add({
+          severity: 'succes',
+          summary: 'Guardado',
+          detail: `One-to-one guardada (nº ${respuesta.idFormularioOneToOne})`
+        });
+        this.formulario.reset();
+        this.empleadoSeleccionado = undefined;
+      },
+      error: err => {
+        this.guardando = false;
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error al guardar',
+          detail: err.error?.mensaje ?? 'Inténtalo de nuevo'
+        });
+      }
+    });
+  }
+
+  private fechaSinHora(fecha: Date | null): string | null
+  {
+    return fecha ? formatDate(fecha, 'yyyy-MM-dd', 'en-US') : null;
   }
 }

@@ -4,7 +4,6 @@ export interface Empleado {
     fechaInicioAntiguedad?: string;
     idManager?: number;
     nombreManager?: string;
-    area?: string;
     posicion?: string;
 }
 

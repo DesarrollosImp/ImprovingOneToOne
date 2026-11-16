@@ -6,6 +6,7 @@
   <div class="py-3">
     <h3>Datos generales de la reunion</h3>
   </div>
+    <p-toast />
   <form [formGroup]="formulario" (ngSubmit)="guardar()" class="p-3">
     <section>
       <div class="formgrid grid">
@@ -24,20 +25,24 @@
         <!-- Area -->
         <div class="field col-12 md:col-6 lg:col-6">
           <label for="area">Area</label>
-          <input formControlName="area" id="area" pInputText class="w-full" />
+           <p-dropdown inputId="area"
+                      formControlName="area"
+                      [options]="areas"
+                      [filter]="true"
+                      placeholder="Selecciona un area"
+                      styleClass="w-full">
+          </p-dropdown>
         </div>
         <!-- Responsable desplegable -->
         <div class="field col-12 md:col-6 lg:col-6">
           <label for="responsable">Responsable</label>
-          <select formControlName="responsable" name="responsable" id="responsable" class="w-full">
-            <option value="">-</option>
-          </select>
+          <input formControlName="idManager" id="idManager" pInputText class="w-full"/>
         </div>
         <!-- Nombre trabajador -->
         <div class="field col-12 md:col-6 lg:col-6">
-          <label for="trabajador">Nombre del trabajador</label>
-          <p-dropdown inputId="trabajador"
-                      formControlName="trabajador"
+          <label for="idEmpleado">Nombre del trabajador</label>
+          <p-dropdown inputId="idEmpleado"
+                      formControlName="idEmpleado"
                       [options]="empleados"
                       optionLabel="nombreCompleto"
                       optionValue="id"
@@ -74,10 +79,10 @@
         <h3 class="py-3">Seguimiento del trabajo y prioridades</h3>
 
         <div class="field">
-          <label for="estadoProyecto">Estado de tareas o proyectos</label>
+          <label for="estadoTareaProyecto">Estado de tareas o proyectos</label>
           <textarea
-            id="estadoProyecto"
-            formControlName="estadoProyecto"
+            id="estadoTareaProyecto"
+            formControlName="estadoTareaProyecto"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -87,12 +92,12 @@
         </div>
 
         <div class="field">
-          <label for="dificultadAvance"
+          <label for="dificultadesAvance"
             >Dificultades que frenen el avance</label
           >
           <textarea
-            id="dificultadAvance"
-            formControlName="dificultadAvance"
+            id="dificultdificultadesAvanceadAvance"
+            formControlName="dificultadesAvance"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -120,10 +125,10 @@
         </div>
 
         <div class="field">
-          <label for="aDesarrollar">A desarrollar</label>
+          <label for="areasDesarrollar">A desarrollar</label>
           <textarea
-            id="aDesarrollar"
-            formControlName="aDesarrollar"
+            id="areasDesarrollar"
+            formControlName="areasDesarrollar"
             pInputTextarea
             [autoResize]="true"
             rows="4"
@@ -296,7 +301,7 @@
         </div>
     </section>
     <div class="flex justify-content-end mt-4">
-        <p-button type="submit" label="Guardar" icon="pi pi-save" styleClass="w-full md:w-auto"/>
+        <p-button type="submit" label="Guardar" icon="pi pi-save" [loading]="guardando" styleClass="w-full md:w-auto"/>
     </div>
   </form>
 </div>
