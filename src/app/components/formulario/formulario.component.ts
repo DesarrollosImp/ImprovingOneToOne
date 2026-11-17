@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -32,6 +32,10 @@ export class FormularioComponent implements OnInit {
   guardando = false;
   firmaResponsable: string | null = null;
   firmaTrabajador: string | null = null;
+
+
+  //Referencia para los dos campos de las firmas
+  @ViewChildren(FirmaComponent) firmas!: QueryList<FirmaComponent>;
 
 
   //datos agrupados que se enviaran al backend
@@ -79,6 +83,8 @@ export class FormularioComponent implements OnInit {
     firmaTrabajador: new FormControl<string | null>(null, Validators.required)
 
   });
+
+  //constructor
   constructor(private empleadosService: EmpleadosService, private onetooneService: OnetooneService, private messageService: MessageService){
     this.formulario.controls.necesitaFormacion.valueChanges
     .pipe(takeUntilDestroyed())
@@ -142,8 +148,6 @@ export class FormularioComponent implements OnInit {
       fechaAntiguedad: this.fechaSinHora(fechaAntiguedad),
       formacion: necesitaFormacion ? formacion : null
     };
-    //probamos en consola si llegan los datos
-    console.log(datos);
 
     this.guardando = true;
 
@@ -157,6 +161,7 @@ export class FormularioComponent implements OnInit {
         });
         this.formulario.reset();
         this.empleadoSeleccionado = undefined;
+        this.firmas.forEach(firma => firma.borrar());
       },
       error: err => {
         this.guardando = false;
