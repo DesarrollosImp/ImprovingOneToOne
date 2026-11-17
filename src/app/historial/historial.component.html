@@ -87,4 +87,143 @@
       <tr><td colspan="7" class="text-center">No hay one-to-ones registradas</td></tr>
     </ng-template>
   </p-table>
+
+  <!-- Tabla del detalle -->
+   <p-dialog [(visible)]="mostrarDetalle"
+            [modal]="true"
+            [dismissableMask]="true"
+            [draggable]="false"
+            [style]="{ width: '80vw' }"
+            [breakpoints]="{ '960px': '95vw' }"
+            [header]="'One-to-one de ' + (detalle?.nombreEmpleado ?? '') + ' — ' + (detalle?.fecha | date: 'dd/MM/yyyy')">
+    @if (detalle) {
+        <section class="seccion">
+            <h3>Datos generales</h3>
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-4">
+                    <p class="etiqueta">Fecha</p>
+                    <p class="texto">{{ detalle.fecha | date: 'dd/MM/yyyy' }}</p>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4">
+                    <p class="etiqueta">Trabajador/a</p>
+                    <p class="texto">{{ detalle.nombreEmpleado }}</p>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4">
+                    <p class="etiqueta">Responsable</p>
+                    <p class="texto">{{ detalle.nombreManager }}</p>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4">
+                    <p class="etiqueta">Área</p>
+                    <p class="texto">{{ detalle.area }}</p>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4">
+                    <p class="etiqueta">Posición</p>
+                    <p class="texto">{{ detalle.posicion }}</p>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4">
+                    <p class="etiqueta">Fecha de antigüedad</p>
+                    <p class="texto">{{ detalle.fechaAntiguedad | date: 'dd/MM/yyyy' }}</p>
+                    </div>
+                </div>
+        </section>
+
+                <div class="grid">
+
+            <!-- Seguimiento del trabajo y prioridades -->
+            <section class="seccion col-12 lg:col-6">
+                <h3>Seguimiento del trabajo y prioridades</h3>
+                <p class="etiqueta">Estado de tareas o proyectos</p>
+                <p class="texto">{{ detalle.estadoTareasProyectos }}</p>
+                <p class="etiqueta">Dificultades que frenan el avance</p>
+                <p class="texto">{{ detalle.dificultadesAvance }}</p>
+            </section>
+
+            <!-- Feedback del manager -->
+            <section class="seccion col-12 lg:col-6">
+                <h3>Feedback del manager</h3>
+                <p class="etiqueta">Puntos fuertes</p>
+                <p class="texto">{{ detalle.puntosFuertes }}</p>
+                <p class="etiqueta">A desarrollar</p>
+                <p class="texto">{{ detalle.areaDesarrollar }}</p>
+            </section>
+
+            <!-- Feedback hacia el manager y el equipo -->
+            <section class="seccion col-12 lg:col-6">
+                <h3>Feedback hacia el manager y el equipo</h3>
+                <p class="etiqueta">Qué está funcionando bien</p>
+                <p class="texto">{{ detalle.queFuncionaBien }}</p>
+                <p class="etiqueta">Qué se puede mejorar</p>
+                <p class="texto">{{ detalle.quePuedeMejorar }}</p>
+            </section>
+
+            <!-- Desarrollo profesional -->
+            <section class="seccion col-12 lg:col-6">
+                <h3>Desarrollo profesional</h3>
+                <p class="etiqueta">¿Dónde se ve dentro de 4 años?</p>
+                <p class="texto">{{ detalle.visionCuatroAnyos }}</p>
+                <p class="etiqueta">Habilidades a desarrollar</p>
+                <p class="texto">{{ detalle.habilidadesDesarrollar }}</p>
+                <p class="etiqueta">Formación</p>
+                @if (detalle.formacion) {
+                <p class="texto">{{ detalle.formacion }}</p>
+                } @else {
+                <p class="texto">No necesita formación</p>
+                }
+            </section>
+
+            <!-- Bienestar y motivación -->
+            <section class="seccion col-12">
+                <h3>Bienestar y motivación</h3>
+                <p class="etiqueta">Carga laboral, motivación y equilibrio entre trabajo y vida personal</p>
+                <p class="texto">{{ detalle.bienestarMotivacion }}</p>
+            </section>
+            </div>
+
+            <!-- ===================== OBJETIVOS Y DESEMPEÑO ===================== -->
+            <section class="seccion">
+            <h3>Objetivos y desempeño</h3>
+            <div class="grid">
+                <div class="col-12 md:col-6">
+                <p class="etiqueta">Objetivos individuales</p>
+                <p class="texto">{{ detalle.objetivosIndividuales }}</p>
+                </div>
+                <div class="col-12 md:col-6">
+                <p class="etiqueta">Metas individuales</p>
+                <p class="texto">{{ detalle.metasIndividuales }}</p>
+                </div>
+                <div class="col-12 md:col-6">
+                <p class="etiqueta">Objetivos del área</p>
+                <p class="texto">{{ detalle.objetivosArea }}</p>
+                </div>
+                <div class="col-12 md:col-6">
+                <p class="etiqueta">KPI's</p>
+                <p class="texto">{{ detalle.kpis }}</p>
+                </div>
+            </div>
+            </section>
+
+            <!-- ===================== FIRMAS ===================== -->
+            <section class="seccion">
+            <h3>Firmas</h3>
+            <div class="grid">
+                <div class="col-12 md:col-6 text-center">
+                <p class="etiqueta">Responsable</p>
+                @if (detalle.firmaResponsable) {
+                    <img [src]="detalle.firmaResponsable" alt="Firma del responsable" class="firma" />
+                } @else {
+                    <p class="texto">Sin firma</p>
+                }
+                </div>
+                <div class="col-12 md:col-6 text-center">
+                <p class="etiqueta">Trabajador/a</p>
+                @if (detalle.firmaTrabajador) {
+                    <img [src]="detalle.firmaTrabajador" alt="Firma del trabajador" class="firma" />
+                } @else {
+                    <p class="texto">Sin firma</p>
+                }
+                </div>
+            </div>
+            </section>
+    }
+   </p-dialog>
 </div>

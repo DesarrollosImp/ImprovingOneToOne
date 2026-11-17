@@ -50,12 +50,12 @@ export class FormularioComponent implements OnInit {
     fechaAntiguedad: new FormControl<Date | null>(null, Validators.required),
 
     //seguimiento del trabajo y prioridades
-    estadoTareaProyecto: new FormControl('', Validators.required),
+    estadoTareasProyectos: new FormControl('', Validators.required),
     dificultadesAvance: new FormControl('', Validators.required),
 
     // feedback del manager
     puntosFuertes: new FormControl('', Validators.required),
-    areasDesarrollar: new FormControl('', Validators.required),
+    areaDesarrollar: new FormControl('', Validators.required),
 
     //feedback hacia el manager
     queFuncionaBien: new FormControl('', Validators.required),

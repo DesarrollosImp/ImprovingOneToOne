@@ -12,11 +12,12 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-historial',
   standalone: true,
-  imports: [TooltipModule, ToolbarModule, ButtonModule, TableModule, RippleModule, InputTextModule, TagModule, ToastModule, DatePipe, RouterLink],
+  imports: [TooltipModule, ToolbarModule, ButtonModule, TableModule, RippleModule, InputTextModule, TagModule, ToastModule, DatePipe, RouterLink, DialogModule],
   providers: [MessageService],
   templateUrl: './historial.component.html',
   styleUrl: './historial.component.scss'
