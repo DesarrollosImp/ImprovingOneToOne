@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="second_nav">
+    <p-toolbar [style]="{'background-color': '#f5f5f5', 'margin-bottom': '5px'}">
+      <p style="font-weight: bold; font-size: 14px; margin: 0px;">HISTORIAL - ONE TO ONE</p>
+      <ng-template pTemplate="end">
+        <p-button label="Manual" class="toggle-button mr-2"
+                  [style]="{'margin': '0px', 'padding': '6px', 'font-size': '0.8em'}"></p-button>
+      </ng-template>
+    </p-toolbar>
+  </div>
+
+  <p-table #dt1
+           
+           [globalFilterFields]="['nombreEmpleado', 'nombreManager', 'posicion', 'area']"
+           sortField="fecha" [sortOrder]="-1"
+           [tableStyle]="{'min-width': '50rem'}"
+           [showCurrentPageReport]="true"
+           [rows]="25"
+           [paginator]="true"
+           [rowsPerPageOptions]="[25, 50, 75, 100]"
+           [loading]="false"
+           [scrollable]="true"
+           [rowHover]="true"
+           scrollHeight="600px"
+           currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros">
+
+    <!-- Buscador y botones -->
+    <ng-template pTemplate="caption">
+      <div class="flex justify-content-end">
+        <div class="flex">
+          <button pButton icon="pi pi-file-excel" label="Descargar Excel completo" class="mr-2"></button>
+          <button pButton icon="pi pi-plus" label="Insertar" class="mr-2" routerLink="/formulario"></button>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" placeholder="Buscar..."
+                   (input)="dt1.filterGlobal($any($event.target).value, 'contains')" />
+          </span>
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Cabecera -->
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 5%;"></th>
+        <th style="width: 18%;" pSortableColumn="nombreEmpleado">
+          NOMBRE EMPLEADO <p-sortIcon field="nombreEmpleado"></p-sortIcon>
+        </th>
+        <th style="width: 18%;" pSortableColumn="nombreManager">
+          NOMBRE MANAGER <p-sortIcon field="nombreManager"></p-sortIcon>
+        </th>
+        <th style="width: 10%;" pSortableColumn="fecha">
+          FECHA <p-sortIcon field="fecha"></p-sortIcon>
+        </th>
+        <th style="width: 20%;" pSortableColumn="posicion">
+          POSICIÓN <p-sortIcon field="posicion"></p-sortIcon>
+        </th>
+        <th style="width: 17%;" pSortableColumn="area">
+          ÁREA <p-sortIcon field="area"></p-sortIcon>
+        </th>
+        <th style="width: 12%;" class="text-center">FORMACIÓN</th>
+      </tr>
+    </ng-template>
+
+    <!-- Filas: mismo orden que la cabecera -->
+    <ng-template pTemplate="body" let-fila>
+      <tr>
+        <td>
+          <p-button icon="pi pi-eye" [rounded]="true" [text]="true"
+                    pTooltip="Ver" />
+        </td>
+        <td>{{ fila.nombreEmpleado }}</td>
+        <td>{{ fila.nombreManager }}</td>
+        <td>{{  'dd/MM/yyyy' }}</td>
+        <td>{{ fila.posicion }}</td>
+        <td>{{ fila.area }}</td>
+        <td class="text-center">
+          <p-tag [value]="fila.formacion ? 'Sí' : 'No'"
+                 [severity]="fila.formacion ? 'warning' : 'secondary'" />
+        </td>
+      </tr>
+    </ng-template>
+
+    <!-- Si no hay resultados -->
+    <ng-template pTemplate="emptymessage">
+      <tr><td colspan="7" class="text-center">No hay one-to-ones registradas</td></tr>
+    </ng-template>
+  </p-table>
+</div>
