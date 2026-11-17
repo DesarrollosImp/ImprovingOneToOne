@@ -40,7 +40,7 @@ export class FormularioComponent implements OnInit {
     //Datos generales
     fecha: new FormControl<Date | null>(null, Validators.required),
     area: new FormControl('', Validators.required),
-    idManager: new FormControl('', Validators.required),
+    idManager: new FormControl<number | null>(null, Validators.required),
     idEmpleado: new FormControl<number | null>(null, Validators.required),
     posicion: new FormControl('', Validators.required),
     fechaAntiguedad: new FormControl<Date | null>(null, Validators.required),
@@ -115,7 +115,7 @@ export class FormularioComponent implements OnInit {
     if(!this.empleadoSeleccionado) return;
 
     this.formulario.patchValue({
-      idManager: this.empleadoSeleccionado.nombreManager ?? '',
+      idManager: this.empleadoSeleccionado.idManager ?? null,
       posicion: this.empleadoSeleccionado.posicion ?? '',
       fechaAntiguedad: this.empleadoSeleccionado.fechaInicioAntiguedad ? new Date(this.empleadoSeleccionado.fechaInicioAntiguedad) : null
     });
@@ -127,7 +127,7 @@ export class FormularioComponent implements OnInit {
       //TEMPORAL
       console.log('Campos invalidos: ', Object.keys(this.formulario.controls)
     .filter(nombre => this.formulario.get(nombre)?.invalid));
-    
+
       this.formulario.markAllAsTouched(); // muestra los errores de los campos
       this.messageService.add({ severity: 'warn', summary:'Formulario Incompleto', detail: 'Revisa los campos en rojo' });
       return;
@@ -151,7 +151,7 @@ export class FormularioComponent implements OnInit {
       next: respuesta => {
         this.guardando = false;
         this.messageService.add({
-          severity: 'succes',
+          severity: 'success',
           summary: 'Guardado',
           detail: `One-to-one guardada (nº ${respuesta.idFormularioOneToOne})`
         });
