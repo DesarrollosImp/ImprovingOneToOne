@@ -7,13 +7,15 @@ export interface OneToOneGuardarResponse
 export interface OneToOneResumen
 {
     idFormularioOneToOne: number;
+    titulo?: string;
     idEmpleado: number;
     idManager: number;
     fecha: string;
     area?: string;
     posicion?: string;
     fechaAntiguedad: string;
-    formacion?: string;   
+    formacion?: string;
+    quejaSugerencia?: string;   
     nombreEmpleado?: string;   
     nombreManager?: string;   
 }

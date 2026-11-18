@@ -289,6 +289,20 @@
             </div>
         }
      </section>
+     <section>
+      <h3>Inquietudes y/o Sugerencias</h3>
+      <div class="field flex align-items-center gap-2">
+        <p-checkbox formControlName="tieneSugerencia" [binary]="true" inputId="tieneSugerencia"/>
+        <label for="tieneSugerencia" class="mb-0">¿El trabajador tiene alguna inquietud o sugerencia?</label>
+      </div>
+
+      @if (formulario.controls.tieneSugerencia.value) {
+        <div>
+          <label for="quejaSugerencia">Escribe la inquietud o sugerencia del trabajador.</label>
+          <textarea name="quejaSugerencia" id="quejaSugerencia" pInputTextarea formControlName="quejaSugerencia" [autoResize]="true" rows="3" class="w-full"></textarea>
+        </div>
+      }
+     </section>
 
     <section class="mb-4">
         <h3 class="py-3">Firmas</h3>

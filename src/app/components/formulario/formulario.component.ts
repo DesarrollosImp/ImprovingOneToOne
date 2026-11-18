@@ -77,6 +77,9 @@ export class FormularioComponent implements OnInit {
     //necesita formacion
     necesitaFormacion: new FormControl(false, { nonNullable: true }),
     formacion: new FormControl({ value: '', disabled: true }, Validators.required),
+    //sugerencia
+    tieneSugerencia: new FormControl(false, { nonNullable: true }),
+    quejaSugerencia: new FormControl({ value: '', disabled: true }, Validators.required),
 
     //firmas (base64)
     firmaResponsable: new FormControl<string | null>(null, Validators.required),
@@ -86,6 +89,7 @@ export class FormularioComponent implements OnInit {
 
   //constructor
   constructor(private empleadosService: EmpleadosService, private onetooneService: OnetooneService, private messageService: MessageService){
+    //formacion
     this.formulario.controls.necesitaFormacion.valueChanges
     .pipe(takeUntilDestroyed())
     .subscribe(necesita => {
@@ -100,6 +104,20 @@ export class FormularioComponent implements OnInit {
         formacion.disable();
       }
     });
+
+    //sugerencia
+    this.formulario.controls.tieneSugerencia.valueChanges
+    .pipe(takeUntilDestroyed())
+    .subscribe(inquietud => {
+      const quejaSugerencia = this.formulario.controls.quejaSugerencia;
+      if(inquietud)
+      {
+        quejaSugerencia.enable();
+      }else{
+        quejaSugerencia.reset('');
+        quejaSugerencia.disable();
+      }
+    })
   }
 
   ngOnInit(): void {
@@ -133,20 +151,20 @@ export class FormularioComponent implements OnInit {
       //TEMPORAL
       console.log('Campos invalidos: ', Object.keys(this.formulario.controls)
     .filter(nombre => this.formulario.get(nombre)?.invalid));
-
       this.formulario.markAllAsTouched(); // muestra los errores de los campos
       this.messageService.add({ severity: 'warn', summary:'Formulario Incompleto', detail: 'Revisa los campos en rojo' });
       return;
     }
 
-    const { necesitaFormacion, formacion, fecha, fechaAntiguedad, ...resto} = this.formulario.getRawValue();
+    const { tieneSugerencia, quejaSugerencia, necesitaFormacion, formacion, fecha, fechaAntiguedad, ...resto} = this.formulario.getRawValue();
 
     //incluimos los campos desactivados como por ejemplo, formacion si esta vacio.
     const datos = {
       ...resto,
       fecha: this.fechaSinHora(fecha),
       fechaAntiguedad: this.fechaSinHora(fechaAntiguedad),
-      formacion: necesitaFormacion ? formacion : null
+      formacion: necesitaFormacion ? formacion : null,
+      quejaSugerencia: tieneSugerencia ? quejaSugerencia : null
     };
 
     this.guardando = true;

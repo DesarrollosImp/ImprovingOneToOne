@@ -28,7 +28,7 @@
     <!-- Buscador y botones -->
     <ng-template pTemplate="caption">
       <div class="flex justify-content-end">
-        <div class="flex">
+        <div class="flex flex-wrap gap-4">
           <button pButton icon="pi pi-file-excel" label="Descargar Excel completo" class="mr-2"></button>
           <button pButton icon="pi pi-plus" label="Insertar" class="mr-2" routerLink="/formulario"></button>
           <span class="p-input-icon-left">
@@ -44,6 +44,9 @@
     <ng-template pTemplate="header">
       <tr>
         <th style="width: 5%;"></th>
+        <th style="width: 18%;" pSortableColumn="titulo">
+          TITULO <p-sortIcon field="titulo"></p-sortIcon>
+        </th>
         <th style="width: 18%;" pSortableColumn="nombreEmpleado">
           NOMBRE EMPLEADO <p-sortIcon field="nombreEmpleado"></p-sortIcon>
         </th>
@@ -60,6 +63,7 @@
           ÁREA <p-sortIcon field="area"></p-sortIcon>
         </th>
         <th style="width: 12%;" class="text-center">FORMACIÓN</th>
+        <th style="width: 12%;" class="text-center">SUGERENCIAS</th>
       </tr>
     </ng-template>
 
@@ -70,6 +74,7 @@
           <p-button icon="pi pi-eye" [rounded]="true" [text]="true"
                     pTooltip="Ver" [loading]="cargandoDetalle" (click)="verDetalle(fila)"/>
         </td>
+        <td>{{ fila.titulo }}</td>
         <td>{{ fila.nombreEmpleado }}</td>
         <td>{{ fila.nombreManager }}</td>
         <td>{{ fila.fecha | date:'dd/MM/yyyy' }}</td>
@@ -78,6 +83,10 @@
         <td class="text-center">
           <p-tag [value]="fila.formacion ? 'Sí' : 'No'"
                  [severity]="fila.formacion ? 'success' : 'secondary'" />
+        </td>
+        <td class="text-center">
+            <p-tag [value]="fila.quejaSugerencia ? 'Sí' : 'No'"
+            [severity]="fila.quejaSugerencia ? 'success' : 'secondary'"/>
         </td>
       </tr>
     </ng-template>
@@ -168,6 +177,12 @@
                 <p class="texto">{{ detalle.formacion }}</p>
                 } @else {
                 <p class="texto">No necesita formación</p>
+                }
+                <p class="etiqueta">Inquietud/Sugerencia</p>
+                @if (detalle.quejaSugerencia) {
+                    <p class="texto">{{ detalle.quejaSugerencia }}</p>
+                }@else {
+                    <p class="texto">No tiene ninguna Inquietud o Sugerencia</p>
                 }
             </section>
 
